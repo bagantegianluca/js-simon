@@ -7,29 +7,59 @@ Individuate gli elementi di cui avete bisogno per realizzare il programma. */
 
 //Select html tag elements
 const h1El = document.querySelector('h1');
-const pEl = document.querySelector('p');
+const h2El = document.querySelector('h2');
 
 //Create empty array to store numbers
-const numbers = [];
+const comNumbers = [];
+const userNumbers = [];
+const rightNumbers = [];
+const wrongNumbers = [];
 
 //Create a loop to insert five random number into the array
 for (let i = 0; i < 5; i++) {
     const number = Math.floor(Math.random() * 100) + 1;
-    numbers.push(number);
+    comNumbers.push(number);
 }
+console.log(comNumbers);
 
 //Display numbers in page
-h1El.innerHTML = numbers.join(', ');
+h1El.innerHTML = `I numeri da indovinare sono:<br/>${comNumbers.join(', ')}`;
 
+//Create variable for clock
+let clock;
 
+//Create variable for timer
+let timer = 5;
 
+//Create countdown
+clock = setInterval(() => {
+    console.log(timer);
+    h2El.innerHTML = timer;
 
-//Eseguo ciclo per creare "n" numeri casuali quando indicato dall'utente ed aggiungo ad un array
+    //When time is up
+    if (timer === 0) {
+        //Stop the clock
+        clearInterval(clock);
+        //Change page messages
+        h1El.innerHTML = 'Tempo scaduto! Indovina i numeri';
+        h2El.innerHTML = '';
+        //Ask user for the five numbers in the right position
+        for (let i = 0; i < 5; i++) {
+            const userNumber = Number(prompt(`Inserisci il numero che apparica in posizione ${i + 1}:`));
+            userNumbers.push(userNumber);
+            //If number is right, message OK and add number to right numbers array 
+            if (userNumbers[i] === comNumbers[i]) {
+                alert(`ESATTO! Il numero alla posizione ${i + 1} era proprio ${userNumber}`)
+                rightNumbers.push(userNumber);
+            } else {
+                //If number is wrong, message wrong and add number to wrong numbers array 
+                alert(`SBAGLIATO! Il numero alla posizione ${i + 1} era ${comNumbers[i]} mentre tu hai digitato ${userNumber}`)
+                wrongNumbers.push(userNumber);
+            }
+        };
 
-//Visualizzazione numeri in pagina e countdown timer (tempo da prompt)
-
-//A fine timer svuoto pagina dai numeri
-
-//Richiedo "n" prompt quanti i numeri da indovinare
-
-//Controllo che i numeri indicati siano presenti sull'array e visualizzo il risultato
+        //Display result
+        h2El.innerHTML = `Numeri da indovinare: ${comNumbers.join(', ')}<br/>Numeri indovinati: ${rightNumbers.join(', ')}<br/>Numeri sbagliati: ${wrongNumbers.join(', ')}`;
+    };
+    timer--;
+}, 1000);
