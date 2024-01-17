@@ -5,6 +5,10 @@ Pensate prima in italiano.
 Dividete in piccoli problemi la consegna.
 Individuate gli elementi di cui avete bisogno per realizzare il programma. */
 
+//Select html tag elements
+const h1El = document.querySelector('h1');
+const pEl = document.querySelector('p');
+
 //Create empty array to store numbers
 const numbers = [];
 
@@ -14,7 +18,11 @@ for (let i = 0; i < 5; i++) {
     numbers.push(number);
 }
 
-console.log(numbers);
+//Display numbers in page
+h1El.innerHTML = numbers.join(', ');
+
+
+
 
 //Eseguo ciclo per creare "n" numeri casuali quando indicato dall'utente ed aggiungo ad un array
 
